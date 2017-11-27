@@ -68,6 +68,18 @@ function kf = kf_init(mu, Sigma)
     kf.Sigma_z = []; % <-- student code should replace this (hint: see DIAG() function)
     % ----------------------
     %  YOUR CODE GOES HERE! 
+    kf.F = [1, 0, 1, 0;
+            0, 1, 0, 1;
+            0, 0, 1, 0;
+            0, 0, 0, 1];
+    kf.H = [1, 0, 0, 0;
+            0, 1, 0, 0]; 
+    kf.Sigma_x = [noise_var_x_pos, 0, 0, 0;
+                  0, noise_var_x_pos, 0, 0;
+                  0, 0, noise_var_x_vel, 0;
+                  0, 0, 0, noise_var_x_vel];
+    kf.Sigma_z = [noise_var_z, 0;
+                  0, noise_var_z];
     % ----------------------
 
 

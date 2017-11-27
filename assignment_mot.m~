@@ -96,7 +96,7 @@ sensor = make_sensor(pi/2 + pi/4, pi/2 - pi/4, R);
 %      for each time step
 %  - there are T = 50 timesteps
 %  - scenario_version determines if the pedestrian walks or stands still
-scenario_version = 2; % 1 or 2
+scenario_version = 1; % 1 or 2
 [objects, T] = mot_scenario_single_target(scenario_version);
 
 % -- SIMULATE measurements of SINGLE pedestrian, NO noise --
