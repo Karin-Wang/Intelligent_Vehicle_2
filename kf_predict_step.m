@@ -10,6 +10,7 @@ t = kf.ts(end);
 %   the predicted state distribution for t, N(x_t | mu, Sigma)
 % ----------------------
 %  YOUR CODE GOES HERE! 
+
 mu = kf.F*mu_prev;
 Sigma = kf.F*Sigma_prev*(kf.F.')+kf.Sigma_x;
 % ----------------------

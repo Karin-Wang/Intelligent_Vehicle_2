@@ -143,7 +143,8 @@ plot_setup_mot(sensor);
 %   And when you want to animate steps 10 to 15 only, use
 %      for step = 10:15
 %
-for step = 1:T % <-- you can change this to a particular time step
+% for step = 1:T % <-- you can change this to a particular time step
+for step = 10:30 % <-- you can change this to a particular time step
     
     % draw the true object positions as a '*' mark
     plot_true_target_position(step, objects);
@@ -158,7 +159,7 @@ for step = 1:T % <-- you can change this to a particular time step
     % Without out it, matlab might delay showing the
     % plot until the for-loop has completely finished, which means
     % that we would only see the plot of the last timestep t = T.    
-    pause(.05);
+    pause(.1);
 end
 
 %% Exercise 1.6: KF initialization and prediction on pedestrian scenario
@@ -187,7 +188,7 @@ for step = 1:T
     plot_kfs(step, kf);    
     plot_true_target_position(step, objects);
     
-    pause(.01);
+    pause(.1);
 end
 
 %% Exercise 1.7 & Exercise 1.8: updating the Kalman Filter
@@ -202,8 +203,10 @@ end
 kf = kf_init(m_init1, S_init1);
 
 % here we scale up/down the process and observation noise
-%kf.Sigma_x = kf.Sigma_x * 1e0; % <-- ** Exercise 1.8 **
-%kf.Sigma_z = kf.Sigma_z * 1e0; % <-- ** Exercise 1.8 **
+kf.Sigma_x = kf.Sigma_x * 1e0; % <-- ** Exercise 1.8 **
+kf.Sigma_z = kf.Sigma_z * 1e0; % <-- ** Exercise 1.8 **
+%  kf.Sigma_x = kf.Sigma_x * 100; % <-- ** Exercise 1.8 **scale up!
+%  kf.Sigma_z = kf.Sigma_z * 100; % <-- ** Exercise 1.8 **scale up!
 
 % feed the measurments, filter the results
 kf = run_single_kf(kf, sensor, measurements);

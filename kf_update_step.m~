@@ -19,7 +19,7 @@ et = z - (kf.H)*mu;
 st = kf.H*Sigma*(kf.H)'+kf.Sigma_z;
 kt = Sigma*(kf.H)'*inv(st);
 mu_upd = mu +kt*et;
-[M,N] = size(kt*kf.H); 
+[,n] = size(kt*kf.H); 
 Sigma_upd = (eye(M,N)-kt*kf.H)*Sigma;
 
 
