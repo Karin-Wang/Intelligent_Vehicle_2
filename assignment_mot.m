@@ -205,8 +205,8 @@ kf = kf_init(m_init1, S_init1);
 % here we scale up/down the process and observation noise
 kf.Sigma_x = kf.Sigma_x * 1e0; % <-- ** Exercise 1.8 **
 kf.Sigma_z = kf.Sigma_z * 1e0; % <-- ** Exercise 1.8 **
-%  kf.Sigma_x = kf.Sigma_x * 100; % <-- ** Exercise 1.8 **scale up!
-%  kf.Sigma_z = kf.Sigma_z * 100; % <-- ** Exercise 1.8 **scale up!
+% kf.Sigma_x = kf.Sigma_x * 100; % <-- ** Exercise 1.8 **scale up!
+% kf.Sigma_z = kf.Sigma_z * 100; % <-- ** Exercise 1.8 **scale up!
 
 % feed the measurments, filter the results
 kf = run_single_kf(kf, sensor, measurements);
@@ -342,7 +342,7 @@ end
 
 % define the setup: two pedestrians moving
 %   now objects(i) contains the positions of pedestrian i
-scenario_version = 1; % 1 = crossing, 2 = stopping
+scenario_version = 2; % 1 = crossing, 2 = stopping
 [objects_multi, T] = mot_scenario_multi_target(scenario_version);
 
 jk_srand(42); % random seed
@@ -394,8 +394,8 @@ kfs = run_multiple_kfs(kfs, sensor, measurements_multi);
 
 % You can also try out your previous Kalman Filter implementations
 %   that assumed a single target on these measurements.
-%kfs(1) = run_single_kf(kfs(1), sensor, measurements_multi);
-%kfs(1) = run_single_kf_gating(kfs(1), sensor, measurements_multi);
+% kfs(1) = run_single_kf(kfs(1), sensor, measurements_multi);
+% kfs(1) = run_single_kf_gating(kfs(1), sensor, measurements_multi);
 
 % visualize the result
 figure(1);

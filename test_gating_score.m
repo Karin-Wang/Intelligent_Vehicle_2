@@ -24,14 +24,28 @@ function [is_ok, score] = test_gating_score(kf, meas_r)
     
     % *NOTE*
     % the gating threshold is some fixed number for YOU (student) to determine
-    gating_threshold = NaN; 
+%     gating_threshold = 1; 
+%     gating_threshold = 2; 
+%     gating_threshold = 3; 
+%     gating_threshold = 4; 
+     gating_threshold = 5; 
+%     gating_threshold = 6; 
+%     gating_threshold = 7; 
+%     gating_threshold = 8; 
+%     gating_threshold = 9; 
+%     gating_threshold = 10; 
+
     
     % this will be the score of the measurement for this KF    
     %   (the score will also be used for data association later on)
-    score = NaN;
+    score = 0;
     
     % ----------------------
     %  YOUR CODE GOES HERE! 
+    for d = 1: size(pred_z_mu)
+        score = (meas_r(d) - pred_z_mu(d))^2 + score;
+    end
+    score  = sqrt(score);
     % ----------------------
 
 

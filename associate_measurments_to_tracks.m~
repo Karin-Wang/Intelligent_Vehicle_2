@@ -25,7 +25,6 @@ function assignment = associate_measurments_to_tracks(meas_pos, kfs, is_active)
     % indices of active KFs
     active_js = find(is_active);
 %     disp('------------------------------------')
-
     % evaluate log likelihood of all observations per tracker
     for r = valid_rs % iterate over valid measurements ...
         for j = active_js; % iterate over active KFs ...
