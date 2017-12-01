@@ -2,17 +2,17 @@
 % Intelligent Vehicles Lab Assignment
 % --------------------------------------------------------
 % Julian Kooij, Delft University of Technology
+%
+% ***********************************************************
+% DON'T FORGET TO RUN STARTUP.M IN THE IV ROOT DIR FIRST!
+% ***********************************************************
 
-% clear the workspace
 clear all;
 close all;
 clc;
 
-% setup paths
-startup_iv
-
-%% Exercise 2.1: load and visualize the scenario
-%-- define occupancy map, vehicle measurements --
+% %% Exercise 2.1: load and visualize the scenario
+% %-- define occupancy map, vehice measurements --
 jk_srand(1);
 scenario = selfloc_scenario(0);
 
@@ -94,7 +94,7 @@ end
 
 %% Exercise 2.3 & 2.4: Measurement likelihood
 %
-% For Exercise 2.4, you will need to complete the code in
+% For Exercise 2.4, tou will need to complete the code in
 %     map_measurement_loglik
 
 % let's take the first time step as reference
@@ -108,7 +108,7 @@ measurement = measurements(1);
 % a set of 'hypotheses' about the true state.
 % Here we take a look at 7 hypotheses, without considering any vehicle
 % dynamics.
-test_location_id = 1; % <-- *CHANGE THIS*, try out locations 1 to 7
+test_location_id = 7; % <-- *CHANGE THIS*, try out locations 1 to 7
 
 test_particles = [ ...
         [0; 10; 2*pi * 0/8], ... % first test location
@@ -133,7 +133,7 @@ log_weight = map_measurement_loglik(particle, map, measurement, sensor);
 if isnan(log_weight)
     warning('You did not implement map_measurement_loglik correctly yet!');
 end
-fprintf('expected measurement at particle x_t\nlog weight = %.3f, i.e. weight = %.3f\n', log_weight, exp(log_weight));
+fprintf('expected measurement at particle x_t\nlog weight = %.3f, i.e. weight = %.3f', log_weight, exp(log_weight));
 
 % -- visualize --
 % setup plot
@@ -171,15 +171,15 @@ xlabel('sensor ray')
 ylabel('distance (m)')
 title('expected measurement at particle x_t')
 
-%% Exercise 2.5, 2.6, 2.7 & 2.8: Particle Filtering
+%% Exercise 2.5 2.6, 2.7 & 2.8: Particle Filtering
 % For Exercise 2.5, you will need to complete the code in
-%     pf_update_step
+%     kf_update_step
 
-N = 100; % num particles % <-- change this
-INITIAL_POSITION_KNOWN = true; % <-- ** Exercise 2.7 **
+N = 200; % num particles % <-- change this
+INITIAL_POSITION_KNOWN = false; % <-- ** Exercise 1.7 **
 
 % compute number of particles to reinitialize each step
-frac_reinit = 0; % <-- ** Exercise 2.8 ** set fraction here
+frac_reinit = 0; % <-- ** Exercise 1.8 ** set fraction here
 N_reinit = ceil(N * frac_reinit); % number of particles to reinitialize
 
 % setup plot
@@ -187,7 +187,7 @@ figure(1);
 clf;
 plot_setup_selfloc(map);
 
-% -- initialize particle filter --
+% -- intialize particle filter --
 if INITIAL_POSITION_KNOWN
     % initial position known
     fprintf('** informed initialization **\n');
@@ -214,6 +214,8 @@ for t = 1:T
     % ----------------------
     %  YOUR CODE GOES HERE! 
     % ----------------------
+    particles(:,1:N_reinit)=pf_init_freespace(N_reinit,map);
+
 
 
     % show particles
@@ -233,7 +235,7 @@ for t = 1:T
     pf(t).cov = S_pos;
 
     %% plot for time t    
-    % remove from figure any previously plotted vehicles, particles
+    % remove from fighure any previously plotted vehicles, particles
     delete(findobj('Tag', 'sensor'));
     delete(findobj('Tag', 'meas'));
     delete(findobj('Tag', 'vehicle'));
@@ -247,8 +249,8 @@ for t = 1:T
 
     % show actual the vehicle
     plot_vehicle_state(veh);
-    
-    pause(0.01)
+    drawnow;
+%     pause(0.01)
 end
 
 %% animate stored result
@@ -265,7 +267,7 @@ for t = 1:T
     
     %% update the plot for time t    
 
-    % remove from figure any previously plotted vehicles, particles
+    % remove from fighure any previously plotted vehicles, particles
     delete(findobj('Tag', 'sensor'));
     delete(findobj('Tag', 'meas'));
     delete(findobj('Tag', 'vehicle'));

@@ -4,7 +4,7 @@
 % orientation. Together with the occupancy map, we can use it to determine
 % what distances we expect to measure with the sensor,
 % and compare it to the actual measurements.
-function log_weight = map_measurement_loglik(particle, map, meas, sensor)
+function weight = map_measurement_loglik(particle, map, meas, sensor)
 
 veh_x = particle(1);
 veh_y = particle(2);
@@ -22,11 +22,15 @@ z_hat = expected_meas.dists;
 % Here you need to compute the unnormalized log likelihood of the
 % measurement for the given particle.
 %
-%  Log weight = \Sum_{r=1}^R -((z(r) - \hat{z}(r)).^ 2/(2*sigma2));
+%  Log-likelihood = \Sum_{r=1}^R -((z(r) - \hat{z}(r)).^ 2/(2*sigma2));
 sigma2 = 50; % the variance sigma
 
-log_weight = NaN; % <-- dummy value (change this!)
 % ----------------------
 %  YOUR CODE GOES HERE! 
 % ----------------------
+weight=0;
+for r=1:32
+    weight=weight-(z(r)-z_hat(r))^2/(2*sigma2^2);
+end
 
+end

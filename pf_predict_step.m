@@ -27,6 +27,7 @@ function particles = pf_predict_step(particles, control_input, dt)
     % ----------------------
     %  YOUR CODE GOES HERE! 
     % ----------------------
+    particles=particles+[velocity*dt*sin(particles(3,:));velocity*dt*cos(particles(3,:));ones(1,N)*steering_angle*dt];
 
 
     %% add noise
@@ -45,6 +46,7 @@ function particles = pf_predict_step(particles, control_input, dt)
     % ----------------------
     %  YOUR CODE GOES HERE! 
     % ----------------------
+    particles=particles+mvnrnd(zeros(3,1),Sigma_x,N)';
 
 
     % since the dimension of each particle, i.e. orientation theta,

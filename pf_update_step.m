@@ -19,6 +19,9 @@ function new_particles = pf_update_step(particles, meas, map, sensor)
     % ----------------------
     %  YOUR CODE GOES HERE! 
     % ----------------------
+    for i=1:N
+        log_weights(i)=map_measurement_loglik(particles(:,i),map,meas,sensor);
+    end
 
 
     %% resample particles 
@@ -58,6 +61,7 @@ function new_particles = pf_update_step(particles, meas, map, sensor)
     % ----------------------
     %  YOUR CODE GOES HERE! 
     % ----------------------
+    new_particles=particles(:,randselect(probs,N));
 
 
     % new_particles should by a 3 x N matrix
