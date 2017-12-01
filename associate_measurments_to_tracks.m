@@ -9,7 +9,7 @@ function assignment = associate_measurments_to_tracks(meas_pos, kfs, is_active)
 
     % this array can be used to keep track of the best gating score
     %   per measurement r, found over all active Kalman Filters.
-    best_scores = inf(1, R);
+    best_scores = zeros(1, R);
     
     if J == 0
         % no filters present

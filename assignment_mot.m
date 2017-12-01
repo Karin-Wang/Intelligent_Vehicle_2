@@ -61,9 +61,9 @@ kf = kf_predict_step(kf); % t = 5;
 fprintf('the Kalman Filter processed %d time steps (t = %d to t = %d)\n', numel(kf.ts), min(kf.ts), max(kf.ts));
 
 % animate the result
-% dims = [1 2]; 
-% dims = [1 3]; 
-dims = [1 4]; % <-- ** Exercise 1.3 **: the dimensions of the state vector to show
+% dims = [1 2]; <-- ** Exercise 1.3 **: the dimensions of the state vector to show
+% dims = [1 3]; dimension 1 & 3
+dims = [1 4]; %dimension 1 & 4
 animate_kf_uncertainty_regions(kf, dims)
 
 %% Exercise 1.4: Pedestrian moving in front of a vehicle
@@ -96,7 +96,7 @@ sensor = make_sensor(pi/2 + pi/4, pi/2 - pi/4, R);
 %      for each time step
 %  - there are T = 50 timesteps
 %  - scenario_version determines if the pedestrian walks or stands still
-scenario_version = 2; % 1 or 2
+scenario_version = 1; % 1 or 2
 [objects, T] = mot_scenario_single_target(scenario_version);
 
 % -- SIMULATE measurements of SINGLE pedestrian, NO noise --
@@ -204,9 +204,9 @@ kf = kf_init(m_init1, S_init1);
 
 % here we scale up/down the process and observation noise
 kf.Sigma_x = kf.Sigma_x * 1e0; % <-- ** Exercise 1.8 **
-kf.Sigma_z = kf.Sigma_z * 1e0; % <-- ** Exercise 1.8 **
+% kf.Sigma_z = kf.Sigma_z * 1e0; % <-- ** Exercise 1.8 **
 % kf.Sigma_x = kf.Sigma_x * 100; % <-- ** Exercise 1.8 **scale up!
-% kf.Sigma_z = kf.Sigma_z * 100; % <-- ** Exercise 1.8 **scale up!
+kf.Sigma_z = kf.Sigma_z * 100; % <-- ** Exercise 1.8 **scale up!
 
 % feed the measurments, filter the results
 kf = run_single_kf(kf, sensor, measurements);
@@ -342,7 +342,7 @@ end
 
 % define the setup: two pedestrians moving
 %   now objects(i) contains the positions of pedestrian i
-scenario_version = 2; % 1 = crossing, 2 = stopping
+scenario_version = 1; % 1 = crossing, 2 = stopping
 [objects_multi, T] = mot_scenario_multi_target(scenario_version);
 
 jk_srand(42); % random seed
@@ -442,5 +442,5 @@ for step = 1:T
     plot_measurements(step, sensor, measurements_multi);
     plot_kfs(step, kfs);
     
-    pause(.05);
+    pause(.1);
 end
